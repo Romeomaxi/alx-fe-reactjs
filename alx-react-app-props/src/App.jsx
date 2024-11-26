@@ -7,9 +7,11 @@ import Header from './components/Header.jsx';
 import MainContent from './components/MainContent.jsx';
 import Footer from './components/Footer.jsx';
 import UserProfile from './components/UserProfile.jsx';
-
+import ProfilePage from './ProfilePage';
+import UserContext from './UserContext';
 function App() {
   const [count, setCount] = useState(0)
+  const userData = {name:'Jane Doe', email: 'mxrom@gmail.com'};
 
   return (
     <>
@@ -30,6 +32,9 @@ function App() {
       <div>
             <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
         </div>
+        <UserContext.Provider value={userData}>
+      <ProfilePage />
+    </UserContext.Provider>
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
