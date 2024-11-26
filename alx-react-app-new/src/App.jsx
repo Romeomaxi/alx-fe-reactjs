@@ -31,6 +31,9 @@ function App() {
       <div>
             <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
         </div>
+      <div><h1 style={{ textAlign: 'center' }}>React Counter App</h1>
+            <Counter />
+        </div>
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
