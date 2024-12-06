@@ -1,26 +1,14 @@
 import React, { useState } from "react";
 
 const RegistrationForm = () => {
-  // State to manage input values
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  // Handle changes to input fields
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  // Separate state for each input field
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { username, email, password } = formData;
 
     // Basic validation
     if (!username || !email || !password) {
@@ -28,22 +16,26 @@ const RegistrationForm = () => {
       return;
     }
 
-    // Log form data and reset form
-    console.log("Form Submitted:", formData);
-    setFormData({ username: "", email: "", password: "" });
+    // Log the form data
+    console.log("Form Submitted:", { username, email, password });
+
+    // Reset form fields
+    setUsername("");
+    setEmail("");
+    setPassword("");
   };
 
   return (
     <div>
-      <h1>User Registration (Controlled Components)</h1>
+      <h1>User Registration</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username:</label>
           <input
             type="text"
             name="username"
-            value={formData.username} // Controlled input
-            onChange={handleChange} // Update state on input
+            value={username} // Explicitly set to username
+            onChange={(e) => setUsername(e.target.value)} // Update username state
             placeholder="Enter your username"
           />
         </div>
@@ -53,8 +45,8 @@ const RegistrationForm = () => {
           <input
             type="email"
             name="email"
-            value={formData.email} // Controlled input
-            onChange={handleChange} // Update state on input
+            value={email} // Explicitly set to email
+            onChange={(e) => setEmail(e.target.value)} // Update email state
             placeholder="Enter your email"
           />
         </div>
@@ -64,8 +56,8 @@ const RegistrationForm = () => {
           <input
             type="password"
             name="password"
-            value={formData.password} // Controlled input
-            onChange={handleChange} // Update state on input
+            value={password} // Explicitly set to password
+            onChange={(e) => setPassword(e.target.value)} // Update password state
             placeholder="Enter your password"
           />
         </div>
