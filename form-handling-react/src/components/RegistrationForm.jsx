@@ -1,25 +1,31 @@
 import React, { useState } from "react";
 
 const RegistrationForm = () => {
-  // Separate state for each input field
+  // Separate states for form fields and errors
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({}); // Object to hold error messages
 
-  // Handle form submission
+  const validate = () => {
+    const newErrors = {};
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
+    if (!username) newErrors.username = "Username is required";
+    return newErrors;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Basic validation
-    if (!username || !email || !password) {
-      alert("All fields are required!");
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors); // Update errors state
       return;
     }
 
-    // Log the form data
+    // Log form data and clear errors
     console.log("Form Submitted:", { username, email, password });
-
-    // Reset form fields
+    setErrors({});
     setUsername("");
     setEmail("");
     setPassword("");
@@ -34,10 +40,11 @@ const RegistrationForm = () => {
           <input
             type="text"
             name="username"
-            value={username} // Explicitly set to username
-            onChange={(e) => setUsername(e.target.value)} // Update username state
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter your username"
           />
+          {errors.username && <span style={{ color: "red" }}>{errors.username}</span>}
         </div>
 
         <div>
@@ -45,10 +52,11 @@ const RegistrationForm = () => {
           <input
             type="email"
             name="email"
-            value={email} // Explicitly set to email
-            onChange={(e) => setEmail(e.target.value)} // Update email state
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
           />
+          {errors.email && <span style={{ color: "red" }}>{errors.email}</span>}
         </div>
 
         <div>
@@ -56,10 +64,11 @@ const RegistrationForm = () => {
           <input
             type="password"
             name="password"
-            value={password} // Explicitly set to password
-            onChange={(e) => setPassword(e.target.value)} // Update password state
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
           />
+          {errors.password && <span style={{ color: "red" }}>{errors.password}</span>}
         </div>
 
         <button type="submit">Register</button>
